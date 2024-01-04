@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://5py3ny64uikc"]
+
+[ext_resource type="Script" path="res://Scripts/bird.gd" id="1_vmffp"]
+[ext_resource type="Texture2D" uid="uid://3602oerv34jp" path="res://Assets/bird/yellowbird-midflap.png" id="2_v6be1"]
+[ext_resource type="Texture2D" uid="uid://lysffvwlppxk" path="res://Assets/bird/yellowbird-upflap.png" id="3_xfd26"]
+[ext_resource type="Texture2D" uid="uid://c3eifsqmqd7aq" path="res://Assets/bird/yellowbird-downflap.png" id="4_h5gdm"]
+[ext_resource type="AudioStream" uid="uid://08m2gayfptdu" path="res://Audio/wing.wav" id="5_w8t3g"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xcccl"]
+radius = 12.0
+height = 34.0
+
+[sub_resource type="Animation" id="Animation_ipqs0"]
+resource_name = "flapping"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_xfd26"), ExtResource("2_v6be1"), ExtResource("4_h5gdm")]
+}
+
+[sub_resource type="Animation" id="Animation_wdwg6"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lbisa"]
+_data = {
+"flapping": SubResource("Animation_ipqs0"),
+"idle": SubResource("Animation_wdwg6")
+}
+
+[node name="Bird" type="CharacterBody2D"]
+position = Vector2(0, -10)
+script = ExtResource("1_vmffp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("3_xfd26")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 4.71239
+shape = SubResource("CapsuleShape2D_xcccl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lbisa")
+}
+
+[node name="FlapSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_w8t3g")

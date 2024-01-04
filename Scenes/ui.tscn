@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjkwfrnebnv5s"]
+
+[ext_resource type="Texture2D" uid="uid://cdcji5vq3kq3b" path="res://Assets/ui/message.png" id="1_o6wwx"]
+[ext_resource type="Script" path="res://Scripts/ui.gd" id="1_q0kfp"]
+[ext_resource type="Script" path="res://Scripts/Score.gd" id="2_p5iqd"]
+[ext_resource type="Texture2D" uid="uid://12jk7fj0i6go" path="res://Assets/ui/gameover.png" id="2_rroiw"]
+[ext_resource type="FontFile" uid="uid://cwspuqtpmjm3c" path="res://Assets/fonts/FlappyBird.ttf" id="3_3cpui"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_q0kfp")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_top = 32
+
+[node name="Score" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("2_p5iqd")
+
+[node name="GameStart" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/GameStart"]
+layout_mode = 2
+texture = ExtResource("1_o6wwx")
+
+[node name="GameOver" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/GameOver"]
+layout_mode = 2
+texture = ExtResource("2_rroiw")
+stretch_mode = 3
+
+[node name="Button" type="Button" parent="MarginContainer/GameOver"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_3cpui")
+theme_override_font_sizes/font_size = 34
+text = "RESTART"
+
+[connection signal="pressed" from="MarginContainer/GameOver/Button" to="." method="_on_button_pressed"]

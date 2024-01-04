@@ -1,0 +1,38 @@
+[gd_scene load_steps=10 format=3 uid="uid://difrp8dadsbvs"]
+
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_5rx5e"]
+[ext_resource type="PackedScene" uid="uid://5py3ny64uikc" path="res://Scenes/bird.tscn" id="1_s6rvi"]
+[ext_resource type="Texture2D" uid="uid://bv13mlpmkgkdo" path="res://Assets/background/background-day.png" id="2_2g0aa"]
+[ext_resource type="PackedScene" uid="uid://ge6gimr236gd" path="res://Scenes/ground.tscn" id="3_stt3h"]
+[ext_resource type="PackedScene" uid="uid://cji4byg5sdj8x" path="res://Scenes/pipe_spawner.tscn" id="4_rt3t8"]
+[ext_resource type="PackedScene" uid="uid://cq8f2rb1s4463" path="res://Scenes/flash.tscn" id="6_w82k7"]
+[ext_resource type="PackedScene" uid="uid://bjkwfrnebnv5s" path="res://Scenes/ui.tscn" id="7_xvu8w"]
+[ext_resource type="AudioStream" uid="uid://g62ikc5xufyb" path="res://Audio/point.wav" id="8_m7e2e"]
+[ext_resource type="AudioStream" uid="uid://3l4w8idebfv" path="res://Audio/hit.wav" id="8_u7f2f"]
+
+[node name="Main" type="Node"]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_5rx5e")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("2_2g0aa")
+
+[node name="PipeSpawner" parent="." instance=ExtResource("4_rt3t8")]
+
+[node name="Ground" parent="." instance=ExtResource("3_stt3h")]
+position = Vector2(24, 200)
+
+[node name="Bird" parent="." instance=ExtResource("1_s6rvi")]
+
+[node name="Flash" parent="." instance=ExtResource("6_w82k7")]
+
+[node name="UI" parent="." instance=ExtResource("7_xvu8w")]
+
+[node name="PointScoredSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_m7e2e")
+
+[node name="HitObstacleSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_u7f2f")
